@@ -1,7 +1,7 @@
 import Foundation
 
 /*:
- throw rethrow
+ throws rethrows
  */
 
 enum ReminderError: Error{
@@ -24,6 +24,13 @@ func absReminder(input: Int, reminder: () throws -> Int) rethrows -> Int{
 
 do {
     try absReminder(input: -0, reminder: hundredReminder)
+} catch ReminderError.invalidParam {
+    "Check ur input"
+}
+
+do {
+    let result = try absReminder(input: -13, reminder: hundredReminder)
+    result
 } catch ReminderError.invalidParam {
     "Check ur input"
 }
