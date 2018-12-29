@@ -104,4 +104,29 @@ func print(name: String?){
 
 print(name: "") //Prints: Got an Empty Name
 print(name: nil) //Prints: Got an Invalid Name
-print(name: "Some Name") //Prints: Name is: Some Name
+print(name: "Mobi Dev Talk") //Prints: Name is: Some Name
+
+/*:
+ Optional value type Error through try?﻿
+ */
+
+func possiblePrint(name: String?) throws -> String{
+    guard let name = name else {
+        throw PrintError.InvalidName
+    }
+    
+    if name.isEmpty {
+        throw PrintError.EmptyName
+    }
+    
+    return name
+}
+
+var possibleName = try? possiblePrint(name: "")
+possibleName // nil
+
+possibleName = try? possiblePrint(name: nil)
+possibleName // nil
+
+possibleName = try? possiblePrint(name: "Mobi Dev Talk")
+possibleName // Mobi Dev Talk
