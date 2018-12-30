@@ -106,10 +106,10 @@ print(name: "") //Prints: Got an Empty Name
 print(name: nil) //Prints: Got an Invalid Name
 print(name: "Mobi Dev Talk") //Prints: Name is: Some Name
 
+
 /*:
  Optional value type Error through try?﻿
  */
-
 func possiblePrint(name: String?) throws -> String{
     guard let name = name else {
         throw PrintError.InvalidName
@@ -123,10 +123,30 @@ func possiblePrint(name: String?) throws -> String{
 }
 
 var possibleName = try? possiblePrint(name: "")
-possibleName // nil
+possibleName?.capitalized // nil
 
 possibleName = try? possiblePrint(name: nil)
-possibleName // nil
+possibleName?.capitalized // nil
 
-possibleName = try? possiblePrint(name: "Mobi Dev Talk")
-possibleName // Mobi Dev Talk
+possibleName = try? possiblePrint(name: "mobi dev talk")
+possibleName?.capitalized // Mobi Dev Talk
+
+/*:
+ Disabling Error propagation through try!
+ */
+var unwrappedName = try! possiblePrint(name: "mobi dev talk")
+unwrappedName.capitalized // Mobi Dev Talk
+
+//unwrappedName = try! possiblePrint(name: "")
+//unwrappedName.capitalized // crashs the app
+
+//unwrappedName = try! possiblePrint(name: nil)
+//unwrappedName.capitalized // crashs the app
+
+/*:
+ Result<T>
+ */
+enum Result<Value, Error: Swift.Error>{
+    case success(Value)
+    case fail(Error)
+}
